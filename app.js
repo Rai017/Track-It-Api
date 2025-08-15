@@ -1,8 +1,8 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const express = require('express');
-const http=require("http");
-const socketIO=require("socket.io");
+const http = require("http");
+const socketIO = require("socket.io");
 const cors = require('cors');
 const mongoose = require('mongoose');
 
@@ -10,12 +10,21 @@ const authRoutes = require('./routes/authRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 
-
 const app = express();
 const server = http.createServer(app);
-const io = socketIO(server, { cors: { origin: '*', methods: ['GET','POST'] } });
+const io = socketIO(server, {
+  cors: {
+    origin: ["http://localhost:3000", "https://charming-boba-2d15b9.netlify.app"],
+    methods: ["GET", "POST"]
+  }
+});
 
-app.use(cors());
+// ✅ CORS config change yahan
+app.use(cors({
+  origin: ["http://localhost:3000", "https://charming-boba-2d15b9.netlify.app"],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -32,9 +41,10 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 });
+
 mongoose.connect(process.env.MONGO_URI)
-  .then(()=>console.log('MongoDB connected'))
-  .catch(err=>console.error(err));
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error(err));
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT);
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
