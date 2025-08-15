@@ -19,7 +19,8 @@ app.use(cors({
     "http://localhost:3000",
     "https://charming-boba-2d15b9.netlify.app",
     "https://cool-kulfi-1356ca.netlify.app",
-    "https://marvelous-moonbeam-e82428.netlify.app" // <-- new frontend
+    "https://marvelous-moonbeam-e82428.netlify.app",
+    "https://joyful-churros-5c045d.netlify.app"
   ],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   credentials: true
@@ -41,7 +42,8 @@ const io = socketIO(server, {
       "http://localhost:3000",
       "https://charming-boba-2d15b9.netlify.app",
       "https://cool-kulfi-1356ca.netlify.app",
-      "https://marvelous-moonbeam-e82428.netlify.app" // <-- same
+      "https://marvelous-moonbeam-e82428.netlify.app",
+      "https://joyful-churros-5c045d.netlify.app"
     ],
     methods: ["GET","POST"]
   }
@@ -57,7 +59,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 });
 
-// ---------- MongoDB Connection ----------
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => {
