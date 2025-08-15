@@ -12,26 +12,39 @@ const bookingRoutes = require('./routes/bookingRoutes');
 
 const app = express();
 const server = http.createServer(app);
+
+// ---------- Socket.IO Setup ----------
 const io = socketIO(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://charming-boba-2d15b9.netlify.app"],
+    origin: [
+      "http://localhost:3000",
+      "https://charming-boba-2d15b9.netlify.app",
+      "https://cool-kulfi-1356ca.netlify.app"
+    ],
     methods: ["GET", "POST"]
   }
 });
 
-// ✅ CORS config change yahan
+// ---------- CORS Middleware ----------
 app.use(cors({
-  origin: ["http://localhost:3000", "https://charming-boba-2d15b9.netlify.app"],
+  origin: [
+    "http://localhost:3000",
+    "https://charming-boba-2d15b9.netlify.app",
+    "https://cool-kulfi-1356ca.netlify.app"
+  ],
   credentials: true
 }));
 
+// ---------- Body Parsing ----------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ---------- Routes ----------
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 
+// ---------- Socket.IO Events ----------
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
@@ -42,9 +55,14 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 });
 
+// ---------- MongoDB Connection ----------
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error(err));
+  .catch(err => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1); // Stop server if DB not connected
+  });
 
+// ---------- Start Server ----------
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
