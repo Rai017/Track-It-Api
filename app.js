@@ -13,25 +13,15 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const app = express();
 const server = http.createServer(app);
 
-// ---------- Socket.IO Setup ----------
-const io = socketIO(server, {
-  cors: {
-    origin: [
-      "http://localhost:3000",
-      "https://charming-boba-2d15b9.netlify.app",
-      "https://cool-kulfi-1356ca.netlify.app"
-    ],
-    methods: ["GET", "POST"]
-  }
-});
-
 // ---------- CORS Middleware ----------
 app.use(cors({
   origin: [
     "http://localhost:3000",
     "https://charming-boba-2d15b9.netlify.app",
-    "https://cool-kulfi-1356ca.netlify.app"
+    "https://cool-kulfi-1356ca.netlify.app",
+    "https://marvelous-moonbeam-e82428.netlify.app" // <-- new frontend
   ],
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   credentials: true
 }));
 
@@ -44,7 +34,19 @@ app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 
-// ---------- Socket.IO Events ----------
+// ---------- Socket.IO ----------
+const io = socketIO(server, {
+  cors: {
+    origin: [
+      "http://localhost:3000",
+      "https://charming-boba-2d15b9.netlify.app",
+      "https://cool-kulfi-1356ca.netlify.app",
+      "https://marvelous-moonbeam-e82428.netlify.app" // <-- same
+    ],
+    methods: ["GET","POST"]
+  }
+});
+
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
