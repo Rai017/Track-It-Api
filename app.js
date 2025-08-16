@@ -13,7 +13,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const app = express();
 const server = http.createServer(app);
 
-// ---------- CORS Middleware ----------
+
 app.use(cors({
   origin: [
     "http://localhost:3000",
@@ -23,7 +23,8 @@ app.use(cors({
     "https://joyful-churros-5c045d.netlify.app",
     "https://animated-crumble-742d62.netlify.app",
     "https://majestic-marshmallow-e9a9be.netlify.app",
-    "https://jade-douhua-492e4a.netlify.app"
+    "https://jade-douhua-492e4a.netlify.app",
+     "https://tubular-squirrel-041357.netlify.app"
   ],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   credentials: true
@@ -49,7 +50,8 @@ const io = socketIO(server, {
       "https://joyful-churros-5c045d.netlify.app",
       "https://animated-crumble-742d62.netlify.app",
       "https://majestic-marshmallow-e9a9be.netlify.app",
-      "https://jade-douhua-492e4a.netlify.app"
+      "https://jade-douhua-492e4a.netlify.app",
+      "https://tubular-squirrel-041357.netlify.app"
     ],
     methods: ["GET","POST"]
   }
@@ -73,6 +75,6 @@ mongoose.connect(process.env.MONGO_URI)
     process.exit(1); // Stop server if DB not connected
   });
 
-// ---------- Start Server ----------
+
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

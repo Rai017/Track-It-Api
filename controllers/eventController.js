@@ -1,11 +1,11 @@
 const Event = require('../models/Event');
 
-// Create new event
+
 const createEvent = async (req, res) => {
   try {
     const { title, date, totalSeats } = req.body;
 
-    // Create event with seats and bookedSeats initialized
+    
     const event = await Event.create({
       title,
       date,
@@ -19,7 +19,7 @@ const createEvent = async (req, res) => {
   }
 };
 
-// Get all events
+
 const getEvents = async (req, res) => {
   try {
     const events = await Event.find();
