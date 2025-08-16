@@ -22,7 +22,7 @@ app.use(cors({
     "https://marvelous-moonbeam-e82428.netlify.app",
     "https://joyful-churros-5c045d.netlify.app",
     "https://animated-crumble-742d62.netlify.app",
-    "https://majestic-marshmallow-e9a9be.app"
+    "https://majestic-marshmallow-e9a9be.netlify.app"
   ],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   credentials: true
