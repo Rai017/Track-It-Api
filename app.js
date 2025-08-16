@@ -20,22 +20,23 @@ app.use(cors({
     "https://charming-boba-2d15b9.netlify.app",
     "https://cool-kulfi-1356ca.netlify.app",
     "https://marvelous-moonbeam-e82428.netlify.app",
-    "https://joyful-churros-5c045d.netlify.app"
+    "https://joyful-churros-5c045d.netlify.app",
+    "https://animated-crumble-742d62.netlify.app"
   ],
   methods: ["GET","POST","PUT","DELETE","OPTIONS"],
   credentials: true
 }));
 
-// ---------- Body Parsing ----------
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ---------- Routes ----------
+
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 
-// ---------- Socket.IO ----------
+
 const io = socketIO(server, {
   cors: {
     origin: [
@@ -43,7 +44,8 @@ const io = socketIO(server, {
       "https://charming-boba-2d15b9.netlify.app",
       "https://cool-kulfi-1356ca.netlify.app",
       "https://marvelous-moonbeam-e82428.netlify.app",
-      "https://joyful-churros-5c045d.netlify.app"
+      "https://joyful-churros-5c045d.netlify.app",
+      "https://animated-crumble-742d62.netlify.app"
     ],
     methods: ["GET","POST"]
   }
